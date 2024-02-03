@@ -1,21 +1,30 @@
-//
-//  ContentView.swift
-//  MyJanken
-//
-//  Created by 橋本純一 on 2024/02/03.
-//
-
 import SwiftUI
 
+enum JanKen: String, CaseIterable {
+    case gu = "✊"
+    case choki = "✌️"
+    case pa = "✋"
+}
+
 struct ContentView: View {
+    @State private var selectedHand = JanKen.gu.rawValue
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Text(selectedHand)
+                .font(.system(size: 200))
+                .padding()
+
+            Button(action: {
+                selectedHand = JanKen.allCases.randomElement()?.rawValue ?? JanKen.gu.rawValue
+            }) {
+                Text("じゃんけんする!")
+                    .frame(maxWidth: 200)
+                    .frame(height: 100)
+                    .background(Color.green)
+                    .foregroundColor(Color.white)
+            }
         }
-        .padding()
     }
 }
 
